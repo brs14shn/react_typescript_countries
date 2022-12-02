@@ -5,11 +5,11 @@ import Country from "./components/Country";
 
 const App = () => {
   const [countries, setCountries] = useState<CountryType[]>([]);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true);
 
   //Alınan veriye type definition nasıl yapılır
   const getCountries = async () => {
-    setLoading(false)
+    setLoading(true);
     try {
       const countries = await axios.get<CountryType[]>(
         "https://restcountries.com/v2/all"
@@ -18,12 +18,10 @@ const App = () => {
       setCountries(countries.data.slice(0, 20));
     } catch {
       console.log("Data not exist");
-    }
-    finally{
-        setTimeout(()=>{
-            setLoading(true)
-        },3000)
-      
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
   };
 
@@ -34,14 +32,12 @@ const App = () => {
   console.log(countries);
 
   return (
-    <div>
-      { loading ? "Loading" : countries.map((country) => {
-        return (
-        
-          <Country country={country} />
-      
-        );
-      })}
+    <div className ="mt-4 d-flex flex-wrap gap-5 p-3 justify-content-around">
+      {loading
+        ? "Loading"
+        : countries.map((country) => {
+            return <Country key={country.name} country={country} />;
+          })}
     </div>
   );
 };
