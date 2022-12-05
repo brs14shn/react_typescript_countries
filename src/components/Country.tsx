@@ -15,7 +15,7 @@ const Country: FunctionComponent<ICountryProps> = (props) => {
       <div className="card shadow-lg">
         <img
           src={Object.values(country.flags)[1]}
-          className="card-img-top"
+          className="card-img-top h-50"
           alt="..."
         />
         <div className="card-body">
